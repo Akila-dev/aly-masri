@@ -31,13 +31,11 @@ const Footer = () => {
 			message: formData.message,
 		};
 
-		client
-			.create(contact)
-			.then(() => {
-				setLoading(false);
-				setIsFormSubmitted(true);
-			})
-			.catch((err) => console.log(err));
+		client.create(contact).then(() => {
+			setLoading(false);
+			setIsFormSubmitted(true);
+		});
+		// .catch((err) => console.log(err));
 	};
 
 	return (
