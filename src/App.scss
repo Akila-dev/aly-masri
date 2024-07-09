@@ -206,3 +206,21 @@
 		padding: 2rem;
 	}
 }
+
+.app__btn {
+	text-decoration: none;
+	padding: 0.5rem 1rem;
+	background-color: var(--secondary-color);
+	color: white;
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+}
+
+@media screen and (max-width: 900px) {
+	.hide-sm {
+		display: none;
+	}
+}

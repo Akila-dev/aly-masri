@@ -23,6 +23,7 @@
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
+	margin-right: 30px;
 
 	img {
 		width: 90px;
@@ -112,6 +113,7 @@
 		padding: 1rem;
 
 		width: 80%;
+		max-width: 300px;
 		height: 100vh;
 
 		display: flex;
@@ -165,9 +167,9 @@
 			}
 		}
 
-		@media screen and (min-width: 900px) {
-			display: none;
-		}
+		// @media screen and (min-width: 900px) {
+		// 	display: none;
+		// }
 	}
 
 	@media screen and (min-width: 900px) {

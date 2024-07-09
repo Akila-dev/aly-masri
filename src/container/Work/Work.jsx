@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { AiFillEye, AiFillGithub } from 'react-icons/ai';
+import { AiFillEye } from 'react-icons/ai';
+import { FaGlobe } from 'react-icons/fa';
+import { IoShareSocialSharp } from 'react-icons/io5';
 import { motion } from 'framer-motion';
 
 import { AppWrap, MotionWrap } from '../../wrapper';
@@ -43,7 +45,14 @@ const Work = () => {
 			</h2>
 
 			<div className="app__work-filter">
-				{['Social Media', 'Branding', 'All'].map((item, index) => (
+				{[
+					'Social Media',
+					'Half Branding',
+					'Full Branding',
+					'Logo',
+					'Website',
+					'All',
+				].map((item, index) => (
 					<div
 						key={index}
 						onClick={() => handleWorkFilter(item)}
@@ -73,28 +82,45 @@ const Work = () => {
 								}}
 								className="app__work-hover app__flex"
 							>
-								<a href={work.projectLink} target="_blank" rel="noreferrer">
-									{' '}
-									<motion.div
-										whileInView={{ scale: [0, 1] }}
-										whileHover={{ scale: [1, 0.9] }}
-										transition={{ duration: 0.25 }}
-										className="app__flex"
-									>
-										<AiFillEye />
-									</motion.div>
-								</a>
-								<a href={work.codeLink} target="_blank" rel="noreferrer">
-									{' '}
-									<motion.div
-										whileInView={{ scale: [0, 1] }}
-										whileHover={{ scale: [1, 0.9] }}
-										transition={{ duration: 0.25 }}
-										className="app__flex"
-									>
-										<AiFillGithub />
-									</motion.div>
-								</a>
+								{work.projectLink && (
+									<a href={work.projectLink} target="_blank" rel="noreferrer">
+										{' '}
+										<motion.div
+											whileInView={{ scale: [0, 1] }}
+											whileHover={{ scale: [1, 0.9] }}
+											transition={{ duration: 0.25 }}
+											className="app__flex"
+										>
+											<AiFillEye />
+										</motion.div>
+									</a>
+								)}
+								{work.websiteLink && (
+									<a href={work.websiteLink} target="_blank" rel="noreferrer">
+										{' '}
+										<motion.div
+											whileInView={{ scale: [0, 1] }}
+											whileHover={{ scale: [1, 0.9] }}
+											transition={{ duration: 0.25 }}
+											className="app__flex"
+										>
+											<FaGlobe />
+										</motion.div>
+									</a>
+								)}
+								{work.smeLink && (
+									<a href={work.smeLink} target="_blank" rel="noreferrer">
+										{' '}
+										<motion.div
+											whileInView={{ scale: [0, 1] }}
+											whileHover={{ scale: [1, 0.9] }}
+											transition={{ duration: 0.25 }}
+											className="app__flex"
+										>
+											<IoShareSocialSharp />
+										</motion.div>
+									</a>
+								)}
 							</motion.div>
 						</div>
 
