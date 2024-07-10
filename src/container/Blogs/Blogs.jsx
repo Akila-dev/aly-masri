@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { format, parseISO } from 'date-fns';
 
 import { AppWrap, MotionWrap } from '../../wrapper';
 import './Blogs.scss';
 import { urlFor, client } from '../../client';
 
 const Blogs = () => {
-	const [services, setServices] = useState([]);
+	const [blogs, setBlogs] = useState([]);
 	const location = useLocation();
 
 	useEffect(() => {
-		const query = '*[_type == "services"]';
+		const query = '*[_type == "blog"]|order(_createdAt desc)';
 
 		client.fetch(query).then((data) => {
 			if (location.pathname === '/blogs') {
-				setServices(data);
+				setBlogs(data);
 			} else {
-				setServices(data.slice(0, 4));
+				setBlogs(data.slice(0, 4));
 			}
 		});
 	}, []);
@@ -29,23 +30,24 @@ const Blogs = () => {
 			</h2>
 
 			<div className="app__blogs-container">
-				{services.map((service, index) => (
-					<Link to={`blog/${service.title}`} key={service.title + index}>
+				{blogs.map((blog, index) => (
+					<Link to={`blog/${blog.title}`} key={blog.title + index}>
 						<motion.div
 							whileInView={{ opacity: 1 }}
 							whileHover={{ scale: 1.1 }}
 							transition={{ duration: 0.5, type: 'tween' }}
 							className="app__blog-item"
 						>
-							<img src={urlFor(service.imgUrl)} alt={service.title} />
+							<img src={urlFor(blog.coverImage)} alt={blog.title} />
 							<h2 className="bold-text" style={{ marginTop: 20 }}>
-								{service.title} <br />
+								{blog.title} <br />
 							</h2>
 							<div>
-								Aly Masri<span> | </span>August 12, 2024
+								Aly Masri<span> | </span>{' '}
+								{format(parseISO(blog.date), 'LLLL	d, yyyy')}
 							</div>
 							<p className="p-text" style={{ marginTop: 10 }}>
-								{service.description}
+								{blog.excerpt.slice(0, 100)}
 							</p>
 							{/* <a href="#h" className="app__btn-2" style={{ marginTop: 20 }}>
 							Read More

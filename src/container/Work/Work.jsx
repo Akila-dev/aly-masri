@@ -3,6 +3,7 @@ import { useLocation, Link } from 'react-router-dom';
 import { AiFillEye } from 'react-icons/ai';
 import { FaGlobe } from 'react-icons/fa';
 import { IoShareSocialSharp } from 'react-icons/io5';
+import { GoArrowRight } from 'react-icons/go';
 import { motion } from 'framer-motion';
 
 import { AppWrap, MotionWrap } from '../../wrapper';
@@ -18,7 +19,7 @@ const Work = () => {
 	const location = useLocation();
 
 	useEffect(() => {
-		const query = '*[_type == "works"]';
+		const query = '*[_type == "works"]|order(_createdAt desc)';
 
 		client.fetch(query).then((data) => {
 			if (location.pathname === '/portfolio') {
@@ -156,8 +157,10 @@ const Work = () => {
 				transition={{ duration: 0.5, delayChildren: 0.5 }}
 				className="app__work-portfolio"
 			>
-				<Link to="/portfolio" className="app__btn">
-					View All
+				<Link to="/portfolio" style={{ marginTop: 30 }}>
+					<motion.div className="app__btn" style={{ padding: '0.75rem 2rem' }}>
+						View All <GoArrowRight />
+					</motion.div>
 				</Link>
 			</motion.div>
 		</>
