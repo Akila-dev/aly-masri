@@ -15,12 +15,14 @@ const Navbar = () => {
 				<img src={images.logo} alt="logo" />
 			</div>
 			<ul className="app__navbar-links">
-				{['home', 'about', 'services', 'blog', 'work', 'skills'].map((item) => (
-					<li className="app__flex p-text" key={`link-${item}`}>
-						<div />
-						<a href={`#${item}`}>{item}</a>
-					</li>
-				))}
+				{['home', 'about', 'services', 'blogs', 'work', 'skills'].map(
+					(item) => (
+						<li className="app__flex p-text" key={`link-${item}`}>
+							<div />
+							<a href={item === 'blogs' ? item : `/#${item}`}>{item}</a>
+						</li>
+					)
+				)}
 			</ul>
 			<div className="hide-sm">
 				<a href="contact" className="app__btn">
@@ -34,9 +36,9 @@ const Navbar = () => {
 				<AnimatePresence>
 					{toggle && (
 						<motion.div
-							animate={{ x: [300, 0] }}
-							exit={{ x: [0, 300] }}
-							transition={{ duration: 0.85, ease: 'easeOut' }}
+							animate={{ x: [300, 0], opacity: [0, 1] }}
+							exit={{ x: [0, 300], opacity: [1, 0] }}
+							transition={{ duration: 0.65, ease: 'easeOut' }}
 						>
 							<HiX onClick={() => setToggle(false)} />
 							<ul>
@@ -44,13 +46,16 @@ const Navbar = () => {
 									'home',
 									'about',
 									'services',
-									'blog',
+									'blogs',
 									'work',
 									'skills',
 									'contact',
 								].map((item) => (
 									<li key={item}>
-										<a href={`#${item}`} onClick={() => setToggle(false)}>
+										<a
+											href={item === 'blogs' ? item : `/#${item}`}
+											onClick={() => setToggle(false)}
+										>
 											{item}
 										</a>
 									</li>

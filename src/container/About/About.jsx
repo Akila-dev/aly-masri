@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { FaDownload } from 'react-icons/fa6';
 
 import { AppWrap, MotionWrap } from '../../wrapper';
 import './About.scss';
+
+import cv from '../../assets/cv/cv.pdf';
 
 const academicBackground = [
 	{
@@ -60,6 +63,11 @@ const About = () => (
 					known for its forward-thinking theme, So if you want to take your
 					business to the next level, Aly is the brand that will always excel.
 				</p>
+				<div style={{ display: 'flex' }}>
+					<a className="app__btn" href={cv} download="Aly Masri (CV)">
+						<FaDownload /> <span style={{ padding: '5px' }}>Download CV</span>
+					</a>
+				</div>
 			</motion.div>
 			<div className="app__about-exp">
 				{academicBackground.map(({ degree, institution, year }, id) => (

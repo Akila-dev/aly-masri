@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, Link } from 'react-router-dom';
 import { AiFillEye } from 'react-icons/ai';
 import { FaGlobe } from 'react-icons/fa';
 import { IoShareSocialSharp } from 'react-icons/io5';
@@ -14,12 +15,19 @@ const Work = () => {
 	const [activeFilter, setActiveFilter] = useState('All');
 	const [animateCard, setAnimateCard] = useState({ y: 0, opacity: 1 });
 
+	const location = useLocation();
+
 	useEffect(() => {
 		const query = '*[_type == "works"]';
 
 		client.fetch(query).then((data) => {
-			setWorks(data);
-			setFilterWork(data);
+			if (location.pathname === '/portfolio') {
+				setWorks(data);
+				setFilterWork(data);
+			} else {
+				setWorks(data.slice(0, 6));
+				setFilterWork(data.slice(0, 6));
+			}
 		});
 	}, []);
 
@@ -40,28 +48,33 @@ const Work = () => {
 
 	return (
 		<>
-			<h2 className="head-text">
+			<h2
+				className="head-text"
+				style={{ marginBottom: location.pathname === '/portfolio' ? 0 : 35 }}
+			>
 				My Creative <span>Portfolio</span> Section
 			</h2>
 
-			<div className="app__work-filter">
-				{[
-					'Social Media',
-					'Half Branding',
-					'Full Branding',
-					'Logo',
-					'Website',
-					'All',
-				].map((item, index) => (
-					<div
-						key={index}
-						onClick={() => handleWorkFilter(item)}
-						className={`app__work-filter-item app__flex p-text ${activeFilter === item ? 'item-active' : ''}`}
-					>
-						{item}
-					</div>
-				))}
-			</div>
+			{location.pathname === '/portfolio' && (
+				<div className="app__work-filter">
+					{[
+						'Social Media',
+						'Half Branding',
+						'Full Branding',
+						'Logo',
+						'Website',
+						'All',
+					].map((item, index) => (
+						<div
+							key={index}
+							onClick={() => handleWorkFilter(item)}
+							className={`app__work-filter-item app__flex p-text ${activeFilter === item ? 'item-active' : ''}`}
+						>
+							{item}
+						</div>
+					))}
+				</div>
+			)}
 
 			<motion.div
 				animate={animateCard}
@@ -136,6 +149,16 @@ const Work = () => {
 						</div>
 					</div>
 				))}
+			</motion.div>
+
+			<motion.div
+				animate={animateCard}
+				transition={{ duration: 0.5, delayChildren: 0.5 }}
+				className="app__work-portfolio"
+			>
+				<Link to="/portfolio" className="app__btn">
+					View All
+				</Link>
 			</motion.div>
 		</>
 	);

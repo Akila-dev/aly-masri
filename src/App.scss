@@ -219,8 +219,26 @@
 	gap: 0.5rem;
 }
 
+.app__btn-2 {
+	text-decoration: none;
+	padding: 0.5rem 0.75rem;
+	background-color: var(--secondary-color);
+	color: white;
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	font-size: 14px;
+	width: 100%;
+}
+
 @media screen and (max-width: 900px) {
 	.hide-sm {
 		display: none;
 	}
+}
+
+a {
+	text-decoration: none;
 }
