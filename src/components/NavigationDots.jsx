@@ -10,7 +10,7 @@ const NavigationDots = ({ active }) => (
 			'about',
 			'services',
 			'blogs',
-			'work',
+			'portfolio',
 			'skills',
 			'testimonial',
 			'contact',

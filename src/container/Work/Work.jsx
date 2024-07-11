@@ -3,6 +3,8 @@ import { useLocation, Link } from 'react-router-dom';
 import { AiFillEye } from 'react-icons/ai';
 import { FaGlobe } from 'react-icons/fa';
 import { IoShareSocialSharp } from 'react-icons/io5';
+import { MdVerified, MdOutlineCancel } from 'react-icons/md';
+// import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 import { GoArrowRight } from 'react-icons/go';
 import { motion } from 'framer-motion';
 
@@ -10,13 +12,29 @@ import { AppWrap, MotionWrap } from '../../wrapper';
 import { urlFor, client } from '../../client';
 import './Work.scss';
 
+import { images } from '../../constants';
+
 const Work = () => {
 	const [works, setWorks] = useState([]);
 	const [filterWork, setFilterWork] = useState([]);
 	const [activeFilter, setActiveFilter] = useState('All');
 	const [animateCard, setAnimateCard] = useState({ y: 0, opacity: 1 });
+	// const [currentWorkData, setCurrentWorkData] = useState({})
+	const [showPopup, setShowPopup] = useState(false);
 
 	const location = useLocation();
+
+	const handlePopupClick = (e) => {
+		e.preventDefault();
+
+		if (e.target === e.currentTarget) {
+			setShowPopup(false);
+		}
+	};
+
+	const showPortfolio = () => {
+		setShowPopup(true);
+	};
 
 	useEffect(() => {
 		const query = '*[_type == "works"]|order(_createdAt desc)';
@@ -83,7 +101,11 @@ const Work = () => {
 				className="app__work-portfolio"
 			>
 				{filterWork.map((work, index) => (
-					<div className="app__work-item app__flex" key={index}>
+					<div
+						className="app__work-item app__flex"
+						key={index}
+						onClick={() => showPortfolio()}
+					>
 						<div className="app__work-img app__flex">
 							<img src={urlFor(work.imgUrl)} alt={work.name} />
 
@@ -97,43 +119,14 @@ const Work = () => {
 								className="app__work-hover app__flex"
 							>
 								{work.projectLink && (
-									<a href={work.projectLink} target="_blank" rel="noreferrer">
-										{' '}
-										<motion.div
-											whileInView={{ scale: [0, 1] }}
-											whileHover={{ scale: [1, 0.9] }}
-											transition={{ duration: 0.25 }}
-											className="app__flex"
-										>
-											<AiFillEye />
-										</motion.div>
-									</a>
-								)}
-								{work.websiteLink && (
-									<a href={work.websiteLink} target="_blank" rel="noreferrer">
-										{' '}
-										<motion.div
-											whileInView={{ scale: [0, 1] }}
-											whileHover={{ scale: [1, 0.9] }}
-											transition={{ duration: 0.25 }}
-											className="app__flex"
-										>
-											<FaGlobe />
-										</motion.div>
-									</a>
-								)}
-								{work.smeLink && (
-									<a href={work.smeLink} target="_blank" rel="noreferrer">
-										{' '}
-										<motion.div
-											whileInView={{ scale: [0, 1] }}
-											whileHover={{ scale: [1, 0.9] }}
-											transition={{ duration: 0.25 }}
-											className="app__flex"
-										>
-											<IoShareSocialSharp />
-										</motion.div>
-									</a>
+									<motion.div
+										whileInView={{ scale: [0, 1] }}
+										whileHover={{ scale: [1, 0.9] }}
+										transition={{ duration: 0.25 }}
+										className="app__flex"
+									>
+										<AiFillEye />
+									</motion.div>
 								)}
 							</motion.div>
 						</div>
@@ -152,23 +145,103 @@ const Work = () => {
 				))}
 			</motion.div>
 
-			<motion.div
-				animate={animateCard}
-				transition={{ duration: 0.5, delayChildren: 0.5 }}
-				className="app__work-portfolio"
-			>
-				<Link to="/portfolio" style={{ marginTop: 30 }}>
-					<motion.div className="app__btn" style={{ padding: '0.75rem 2rem' }}>
-						View All <GoArrowRight />
-					</motion.div>
-				</Link>
-			</motion.div>
+			{location.pathname !== '/portfolio' && (
+				<motion.div
+					animate={animateCard}
+					transition={{ duration: 0.5, delayChildren: 0.5 }}
+					className="app__work-portfolio"
+				>
+					<Link to="/portfolio" style={{ marginTop: 30 }}>
+						<motion.div
+							className="app__btn"
+							style={{ padding: '0.75rem 2rem' }}
+						>
+							View All <GoArrowRight />
+						</motion.div>
+					</Link>
+				</motion.div>
+			)}
+
+			{showPopup && (
+				<div className="app__work-popup" onClick={(e) => handlePopupClick(e)}>
+					<div className="app__work-popup_card">
+						<div className="app_work-popup_head">
+							<div className="app_work-popup_logo">
+								<img src={images.about01} alt="logo" />
+							</div>
+							<div className="app_work-popup_header">
+								<h2>Toronto Media and Consult</h2>
+								<div>
+									<span className="p-text">Full Branding</span>
+									<span className="p-text">Half Branding</span>
+									<span className="p-text">Website</span>
+								</div>
+							</div>
+						</div>
+						<div className="app_work-popup_section">
+							<p className="bold-text">
+								Before Aly
+								<MdOutlineCancel style={{ color: 'red' }} />
+							</p>
+							<div>
+								<img src={images.about01} alt="logo" />
+								<img src={images.about01} alt="logo" />
+								<img src={images.about01} alt="logo" />
+								<img src={images.about01} alt="logo" />
+								<div>
+									<a href="#m">
+										<AiFillEye style={{ fontSize: 18 }} />
+										<span className="hide-s">Project File</span>
+									</a>{' '}
+									<a href="#m">
+										<FaGlobe />
+										<span className="hide-s">Website</span>
+									</a>
+									<a href="#m">
+										<IoShareSocialSharp />
+										<span className="hide-s">Social Media</span>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div className="app_work-popup_section">
+							<p className="bold-text">
+								After Aly
+								<MdVerified style={{ color: 'green' }} />
+							</p>
+							<div>
+								<img src={images.about01} alt="logo" />
+								<img src={images.about01} alt="logo" />
+								<img src={images.about01} alt="logo" />
+								<img src={images.about01} alt="logo" />
+								<div>
+									<a href="#m">
+										<AiFillEye style={{ fontSize: 18 }} />{' '}
+										<span className="hide-s">Project File</span>
+									</a>{' '}
+									<a href="#m">
+										<FaGlobe />
+										<span className="hide-s">Website Link</span>
+									</a>
+									<a href="#m">
+										<IoShareSocialSharp />
+										<span className="hide-s">Social Media</span>
+									</a>
+								</div>
+							</div>
+						</div>
+						{/* <div className="divider">
+						<HiOutlineDotsHorizontal />
+					</div> */}
+					</div>
+				</div>
+			)}
 		</>
 	);
 };
 
 export default AppWrap(
 	MotionWrap(Work, 'app__works'),
-	'work',
+	'portfolio',
 	'app__primarybg'
 );

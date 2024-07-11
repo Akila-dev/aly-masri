@@ -10,13 +10,18 @@ const AppWrap = (Component, idName, classNames) =>
 				<SocialMedia />
 				<div className="app__wrapper app__flex">
 					<Component />
-
-					<div className="copyright">
-						<p className="p-text">@2024 Aly Masri</p>
-						<p className="p-text">All rights reserved</p>
-					</div>
+					{idName === 'contact' && (
+						<div className="copyright">
+							<p className="p-text">@2024 Aly Masri</p>
+							<p className="p-text">All rights reserved</p>
+						</div>
+					)}
 				</div>
-				{location.pathname === '/' && <NavigationDots active={idName} />}
+				{location.pathname === '/' ? (
+					<NavigationDots active={idName} />
+				) : (
+					<div className="app__navigation" />
+				)}
 			</div>
 		);
 	};

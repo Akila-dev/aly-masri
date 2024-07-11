@@ -6,5 +6,16 @@ import Header from './Header/Header';
 import Skills from './Skills/Skills';
 import Testimonial from './Testimonial/Testimonial';
 import Work from './Work/Work';
+import SingleBlog from './SingleBlog/SingleBlog';
 
-export { About, Blogs, Services, Footer, Header, Skills, Testimonial, Work };
+export {
+	About,
+	Blogs,
+	Services,
+	Footer,
+	Header,
+	Skills,
+	SingleBlog,
+	Testimonial,
+	Work,
+};

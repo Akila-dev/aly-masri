@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import { Footer } from './container';
 import { Navbar } from './components';
-import { Home, Blogs, Portfolio } from './pages';
+import { Home, Blogs, Portfolio, BlogPost } from './pages';
 import './App.scss';
 
 const App = () => (
@@ -13,6 +13,7 @@ const App = () => (
 		<Routes>
 			<Route exact path="/" element={<Home />} />
 			<Route exact path="/blogs" element={<Blogs />} />
+			<Route exact path="/blog/:blogId" element={<BlogPost />} />
 			<Route exact path="/portfolio" element={<Portfolio />} />
 		</Routes>
 		<Footer />

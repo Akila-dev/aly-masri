@@ -15,11 +15,11 @@ const Navbar = () => {
 				<img src={images.logo} alt="logo" />
 			</div>
 			<ul className="app__navbar-links">
-				{['home', 'about', 'services', 'blogs', 'work', 'skills'].map(
+				{['home', 'about', 'services', 'blogs', 'portfolio', 'skills'].map(
 					(item) => (
 						<li className="app__flex p-text" key={`link-${item}`}>
 							<div />
-							<a href={item === 'blogs' ? item : `/#${item}`}>{item}</a>
+							<a href={item === 'blogs' ? '/blogs' : `/#${item}`}>{item}</a>
 						</li>
 					)
 				)}
@@ -47,13 +47,13 @@ const Navbar = () => {
 									'about',
 									'services',
 									'blogs',
-									'work',
+									'portfolio',
 									'skills',
 									'contact',
 								].map((item) => (
 									<li key={item}>
 										<a
-											href={item === 'blogs' ? item : `/#${item}`}
+											href={item === 'blogs' ? '/blogs' : `/#${item}`}
 											onClick={() => setToggle(false)}
 										>
 											{item}

@@ -29,6 +29,18 @@
 
 	margin-right: 5rem;
 
+	p {
+		font-size: 0.95rem;
+		text-align: left;
+		color: var(--gray-color);
+		line-height: 1.5;
+		text-align: justify;
+
+		@media screen and (min-width: 2000px) {
+			font-size: 1.75rem;
+		}
+	}
+
 	@media screen and (max-width: 1240px) {
 		margin-right: 3rem;
 		gap: 1.5rem;
@@ -150,7 +162,7 @@
 	min-width: 80px;
 
 	p {
-		font-weight: 800;
+		font-weight: 600;
 		color: var(--secondary-color);
 	}
 

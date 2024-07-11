@@ -31,7 +31,7 @@ const Blogs = () => {
 
 			<div className="app__blogs-container">
 				{blogs.map((blog, index) => (
-					<Link to={`blog/${blog.title}`} key={blog.title + index}>
+					<Link to={`/blog/${blog.slug.current}`} key={blog.title + index}>
 						<motion.div
 							whileInView={{ opacity: 1 }}
 							whileHover={{ scale: 1.1 }}
