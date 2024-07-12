@@ -128,20 +128,3 @@
 		margin: 1rem 0;
 	}
 }
-
-.app__checkbox-container {
-	background-color: var(--white-color) !important;
-	display: flex !important;
-	justify-content: left !important;
-	align-items: top;
-	gap: 10px !important;
-
-	span {
-		width: 100%;
-		color: var(--gray-color);
-	}
-	input {
-		max-width: 20px;
-		color: var(--primary-color);
-	}
-}

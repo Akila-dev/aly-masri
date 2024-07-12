@@ -1,24 +1,20 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-
-import jsonp from 'jsonp';
-import queryString from 'query-string';
 
 import { images } from '../../constants';
 import { AppWrap, MotionWrap } from '../../wrapper';
+import { client } from '../../client';
 import './Footer.scss';
 
 const Footer = () => {
 	const [formData, setFormData] = useState({
-		NAME: '',
-		EMAIL: '',
-		MESSAGE: '',
-		newsletter: '',
+		name: '',
+		email: '',
+		message: '',
 	});
 	const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 	const [loading, setLoading] = useState(false);
 
-	const { NAME, EMAIL, MESSAGE, newsletter } = formData;
+	const { username, email, message } = formData;
 
 	const handleChangeInput = (e) => {
 		const { name, value } = e.target;
@@ -28,14 +24,18 @@ const Footer = () => {
 	const handleSubmit = () => {
 		setLoading(true);
 
-		jsonp(
-			`https://alymasri.us10.list-manage.com/subscribe/post?u=69f5a35efbb528b5e8a51a8d8&amp;id=1981f3d9c7&amp;f_id=00eb41e5f0&${queryString.stringify(formData)}`,
-			{ param: 'c' },
-			(err, data) => {
-				console.log('data:', data);
-				console.log(formData);
-			}
-		);
+		const contact = {
+			_type: 'contact',
+			name: formData.username,
+			email: formData.email,
+			message: formData.message,
+		};
+
+		client.create(contact).then(() => {
+			setLoading(false);
+			setIsFormSubmitted(true);
+		});
+		// .catch((err) => console.log(err));
 	};
 
 	return (
@@ -57,24 +57,24 @@ const Footer = () => {
 				</div>
 			</div>
 			{!isFormSubmitted ? (
-				<form className="app__footer-form app__flex">
+				<div className="app__footer-form app__flex">
 					<div className="app__flex">
 						<input
 							className="p-text"
 							type="text"
 							placeholder="Your Name"
-							name="NAME"
-							value={NAME}
+							name="username"
+							value={username}
 							onChange={handleChangeInput}
 						/>
 					</div>
 					<div className="app__flex">
 						<input
 							className="p-text"
-							type="EMAIL"
+							type="email"
 							placeholder="Your Email"
-							name="EMAIL"
-							value={EMAIL}
+							name="email"
+							value={email}
 							onChange={handleChangeInput}
 						/>
 					</div>
@@ -82,24 +82,15 @@ const Footer = () => {
 						<textarea
 							className="p-text"
 							placeholder="Your Message"
-							name="MESSAGE"
-							value={MESSAGE}
+							value={message}
+							name="message"
 							onChange={handleChangeInput}
 						/>
 					</div>
-					{/* <div className="app__checkbox-container">
-						<input
-							type="checkbox"
-							name="group[498916][1]"
-							value={newsletter}
-							onChange={handleChangeInput}
-						/>
-						<span className="p-text">Subscribe to my Newsletter</span>
-					</div> */}
 					<button type="button" className="p-text" onClick={handleSubmit}>
 						{!loading ? 'Send Message' : 'Sending...'}
 					</button>
-				</form>
+				</div>
 			) : (
 				<div>
 					<h3 className="head-text">Thank you for getting in touch!</h3>

@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import { Footer } from './container';
 import { Navbar } from './components';
-import { Home, Blogs, Portfolio, BlogPost } from './pages';
+import { Home, Blogs, Portfolio, BlogPost, SinglePortfolio } from './pages';
 import './App.scss';
 
 const App = () => (
@@ -15,6 +15,11 @@ const App = () => (
 			<Route exact path="/blogs" element={<Blogs />} />
 			<Route exact path="/blog/:blogId" element={<BlogPost />} />
 			<Route exact path="/portfolio" element={<Portfolio />} />
+			<Route
+				exact
+				path="/portfolio/:portfolioId"
+				element={<SinglePortfolio />}
+			/>
 		</Routes>
 		<Footer />
 	</div>

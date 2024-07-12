@@ -1,5 +1,5 @@
 export default {
-	name: 'works',
+	name: 'portfolio',
 	title: 'My Portfolio',
 	type: 'document',
 	fields: [
@@ -7,6 +7,17 @@ export default {
 			name: 'company',
 			title: 'Company',
 			type: 'string',
+		},
+		{
+			name: 'slug',
+			title: 'Slug',
+			type: 'slug',
+			options: {
+				source: 'company',
+				maxLength: 96,
+				isUnique: (value, context) => context.defaultIsUnique(value, context),
+			},
+			validation: (rule) => rule.required(),
 		},
 		{
 			name: 'logoUrl',
@@ -22,37 +33,37 @@ export default {
 			type: 'string',
 		},
 		{
-			name: 'projectLinks',
-			title: 'project Links',
+			name: 'beforeProjectLinks',
+			title: 'Before Project Links',
 			type: 'array',
 			of: [
 				{
-					name: 'projectLink',
-					title: 'project Link',
+					name: 'beforeProjectLink',
+					title: 'Before Project Link',
 					type: 'string',
 				},
 			],
 		},
 		{
-			name: 'websiteLinks',
-			title: 'Website Links',
+			name: 'beforeWebsiteLinks',
+			title: 'Before Website Links',
 			type: 'array',
 			of: [
 				{
-					name: 'websiteLink',
-					title: 'Website Link',
+					name: 'beforeWebsiteLink',
+					title: 'Before Website Link',
 					type: 'string',
 				},
 			],
 		},
 		{
-			name: 'smeLinks',
-			title: 'Social Media Links',
+			name: 'beforeSmeLinks',
+			title: 'Before Social Media Links',
 			type: 'array',
 			of: [
 				{
-					name: 'smeLink',
-					title: 'Social Media Link',
+					name: 'beforeSmeLink',
+					title: 'Before Social Media Link',
 					type: 'string',
 				},
 			],
@@ -61,14 +72,41 @@ export default {
 			name: 'beforeImgs',
 			title: 'Before Images',
 			type: 'array',
+			of: [{ type: 'gridImage' }],
+		},
+		{
+			name: 'afterProjectLinks',
+			title: 'After Project Links',
+			type: 'array',
 			of: [
 				{
-					name: 'imgUrl',
-					title: 'ImageUrl',
-					type: 'image',
-					options: {
-						hotspot: true,
-					},
+					name: 'afterProjectLink',
+					title: 'After Project Link',
+					type: 'string',
+				},
+			],
+		},
+		{
+			name: 'afterWebsiteLinks',
+			title: 'After Website Links',
+			type: 'array',
+			of: [
+				{
+					name: 'afterWebsiteLink',
+					title: 'After Website Link',
+					type: 'string',
+				},
+			],
+		},
+		{
+			name: 'afterSmeLinks',
+			title: 'After Social Media Links',
+			type: 'array',
+			of: [
+				{
+					name: 'afterSmeLink',
+					title: 'After Social Media Link',
+					type: 'string',
 				},
 			],
 		},
@@ -76,16 +114,7 @@ export default {
 			name: 'afterImgs',
 			title: 'After Images',
 			type: 'array',
-			of: [
-				{
-					name: 'imgUrl',
-					title: 'ImageUrl',
-					type: 'image',
-					options: {
-						hotspot: true,
-					},
-				},
-			],
+			of: [{ type: 'gridImage' }],
 		},
 		{
 			name: 'tags',

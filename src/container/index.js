@@ -7,6 +7,7 @@ import Skills from './Skills/Skills';
 import Testimonial from './Testimonial/Testimonial';
 import Work from './Work/Work';
 import SingleBlog from './SingleBlog/SingleBlog';
+import SinglePortfolio from './SinglePortfolio/SinglePortfolio';
 
 export {
 	About,
@@ -16,6 +17,7 @@ export {
 	Header,
 	Skills,
 	SingleBlog,
+	SinglePortfolio,
 	Testimonial,
 	Work,
 };

@@ -19,7 +19,18 @@ const Navbar = () => {
 					(item) => (
 						<li className="app__flex p-text" key={`link-${item}`}>
 							<div />
-							<a href={item === 'blogs' ? '/blogs' : `/#${item}`}>{item}</a>
+							<a
+								href={
+									// eslint-disable-next-line no-nested-ternary
+									item === 'blogs'
+										? '/blogs'
+										: item === 'portfolio'
+											? '/portfolio'
+											: `/#${item}`
+								}
+							>
+								{item}
+							</a>
 						</li>
 					)
 				)}
@@ -53,7 +64,14 @@ const Navbar = () => {
 								].map((item) => (
 									<li key={item}>
 										<a
-											href={item === 'blogs' ? '/blogs' : `/#${item}`}
+											href={
+												// eslint-disable-next-line no-nested-ternary
+												item === 'blogs'
+													? '/blogs'
+													: item === 'portfolio'
+														? '/portfolio'
+														: `/#${item}`
+											}
 											onClick={() => setToggle(false)}
 										>
 											{item}

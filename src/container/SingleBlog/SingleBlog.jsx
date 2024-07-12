@@ -28,6 +28,10 @@ const SingleBlog = () => {
 	const { blogId } = useParams();
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+
+	useEffect(() => {
 		client
 			.fetch(`*[_type=='blog' && slug.current=='${blogId}']`)
 			.then((data) => {
@@ -60,5 +64,6 @@ const SingleBlog = () => {
 
 export default BlogWrap(
 	MotionWrap(SingleBlog, 'app__singleBlog'),
+	'blogItem',
 	'app__whitebg'
 );
