@@ -32,8 +32,8 @@ const Footer = () => {
 			`https://alymasri.us10.list-manage.com/subscribe/post?u=69f5a35efbb528b5e8a51a8d8&amp;id=1981f3d9c7&amp;f_id=00eb41e5f0&${queryString.stringify(formData)}`,
 			{ param: 'c' },
 			(err, data) => {
-				console.log('data:', data);
-				console.log(formData);
+				// console.log('data:', data);
+				// console.log(formData);
 			}
 		);
 	};

@@ -15,6 +15,7 @@ import { images } from '../../constants';
 
 const SinglePortfolio = () => {
 	const [portfolioData, setPortfolioData] = useState([]);
+	const [noLink, setNoLink] = useState(false);
 	// eslint-disable-next-line prefer-const
 	const { portfolioId } = useParams();
 
@@ -27,6 +28,18 @@ const SinglePortfolio = () => {
 			.fetch(`*[_type=='portfolio' && slug.current=='${portfolioId}']`)
 			.then((data) => {
 				setPortfolioData(data[0]);
+			})
+			.then(() => {
+				// console.log(portfolioData);
+				if (portfolioData) {
+					if (
+						portfolioData.afterProjectLinks.length === 0 &&
+						portfolioData.afterWebsiteLinks.length === 0 &&
+						portfolioData.afterSmeLinks.length === 0
+					) {
+						setNoLink(true);
+					}
+				}
 			});
 	}, [portfolioId]);
 
@@ -68,6 +81,7 @@ const SinglePortfolio = () => {
 										alt={portfolioData.company + index}
 									/>
 								))}
+
 								<div>
 									{portfolioData.beforeProjectLinks &&
 										portfolioData.beforeProjectLinks.map((link, i) => (
@@ -108,29 +122,31 @@ const SinglePortfolio = () => {
 										alt={portfolioData.company + index}
 									/>
 								))}
-								<div>
-									{portfolioData.afterProjectLinks &&
-										portfolioData.afterProjectLinks.map((link, i) => (
-											<a href={link} key={i}>
-												<AiFillEye style={{ fontSize: 18 }} />
-												<span className="hide-s">Project File</span>
-											</a>
-										))}
-									{portfolioData.afterWebsiteLinks &&
-										portfolioData.afterWebsiteLinks.map((link, i) => (
-											<a href={link}>
-												<FaGlobe />
-												<span className="hide-s">Website Link</span>
-											</a>
-										))}
-									{portfolioData.afterSmeLinks &&
-										portfolioData.afterSmeLinks.map((link, i) => (
-											<a href={link}>
-												<IoShareSocialSharp />
-												<span className="hide-s">Social Media</span>
-											</a>
-										))}
-								</div>
+								{!noLink && (
+									<div>
+										{portfolioData.afterProjectLinks &&
+											portfolioData.afterProjectLinks.map((link, i) => (
+												<a href={link} key={i}>
+													<AiFillEye style={{ fontSize: 18 }} />
+													<span className="hide-s">Project File</span>
+												</a>
+											))}
+										{portfolioData.afterWebsiteLinks &&
+											portfolioData.afterWebsiteLinks.map((link, i) => (
+												<a href={link} key={i}>
+													<FaGlobe />
+													<span className="hide-s">Website Link</span>
+												</a>
+											))}
+										{portfolioData.afterSmeLinks &&
+											portfolioData.afterSmeLinks.map((link, i) => (
+												<a href={link} key={i}>
+													<IoShareSocialSharp />
+													<span className="hide-s">Social Media</span>
+												</a>
+											))}
+									</div>
+								)}
 							</div>
 						</div>
 					)}
