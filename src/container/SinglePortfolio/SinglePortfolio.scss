@@ -37,6 +37,7 @@
 
 .app_work-popup_head {
 	display: flex;
+	align-items: center;
 	gap: 1.5rem;
 
 	.app_work-popup_logo {
@@ -67,7 +68,7 @@
 			}
 
 			@media screen and (max-width: 450px) {
-				font-size: 1.1rem;
+				font-size: 1.25rem;
 			}
 		}
 
@@ -123,8 +124,8 @@
 			height: 100%;
 			background-color: var(--white-color);
 			box-shadow: 0 0 7px #0000000c;
-			min-height: 200px;
-			max-height: 200px;
+			// min-height: 200px;
+			// max-height: 200px;
 		}
 
 		div {

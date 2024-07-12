@@ -15,7 +15,8 @@ import { images } from '../../constants';
 
 const SinglePortfolio = () => {
 	const [portfolioData, setPortfolioData] = useState([]);
-	const [noLink, setNoLink] = useState(false);
+	const [noAfterLink, setNoAfterLink] = useState(false);
+	const [noBeforeLink, setNoBeforeLink] = useState(false);
 	// eslint-disable-next-line prefer-const
 	const { portfolioId } = useParams();
 
@@ -28,18 +29,25 @@ const SinglePortfolio = () => {
 			.fetch(`*[_type=='portfolio' && slug.current=='${portfolioId}']`)
 			.then((data) => {
 				setPortfolioData(data[0]);
-			})
-			.then(() => {
-				// console.log(portfolioData);
-				if (portfolioData) {
-					if (
-						portfolioData.afterProjectLinks.length === 0 &&
-						portfolioData.afterWebsiteLinks.length === 0 &&
-						portfolioData.afterSmeLinks.length === 0
-					) {
-						setNoLink(true);
-					}
-				}
+
+				// if (data[0]) {
+				// 	setTimeout(() => {
+				// 		if (
+				// 			data[0].afterProjectLinks.length === 0 &&
+				// 			data[0].afterWebsiteLinks.length === 0 &&
+				// 			data[0].afterSmeLinks.length === 0
+				// 		) {
+				// 			setNoAfterLink(true);
+				// 		}
+				// 		// if (
+				// 		// 	data[0].beforeProjectLinks.length === 0 &&
+				// 		// 	data[0].beforeWebsiteLinks.length === 0 &&
+				// 		// 	data[0].beforeSmeLinks.length === 0
+				// 		// ) {
+				// 		// 	setNoBeforeLink(true);
+				// 		// }
+				// 	}, 500);
+				// }
 			});
 	}, [portfolioId]);
 
@@ -82,29 +90,31 @@ const SinglePortfolio = () => {
 									/>
 								))}
 
-								<div>
-									{portfolioData.beforeProjectLinks &&
-										portfolioData.beforeProjectLinks.map((link, i) => (
-											<a href={link} key={i}>
-												<AiFillEye style={{ fontSize: 18 }} />
-												<span className="hide-s">Project File</span>
-											</a>
-										))}
-									{portfolioData.beforeWebsiteLinks &&
-										portfolioData.beforeWebsiteLinks.map((link, i) => (
-											<a href={link}>
-												<FaGlobe />
-												<span className="hide-s">Website Link</span>
-											</a>
-										))}
-									{portfolioData.beforeSmeLinks &&
-										portfolioData.beforeSmeLinks.map((link, i) => (
-											<a href={link}>
-												<IoShareSocialSharp />
-												<span className="hide-s">Social Media</span>
-											</a>
-										))}
-								</div>
+								{!noBeforeLink && (
+									<div>
+										{portfolioData.beforeProjectLinks &&
+											portfolioData.beforeProjectLinks.map((link, i) => (
+												<a href={link} key={i}>
+													<AiFillEye style={{ fontSize: 18 }} />
+													<span className="hide-s">Project File</span>
+												</a>
+											))}
+										{portfolioData.beforeWebsiteLinks &&
+											portfolioData.beforeWebsiteLinks.map((link, i) => (
+												<a href={link}>
+													<FaGlobe />
+													<span className="hide-s">Website Link</span>
+												</a>
+											))}
+										{portfolioData.beforeSmeLinks &&
+											portfolioData.beforeSmeLinks.map((link, i) => (
+												<a href={link}>
+													<IoShareSocialSharp />
+													<span className="hide-s">Social Media</span>
+												</a>
+											))}
+									</div>
+								)}
 							</div>
 						</div>
 					)}
@@ -122,7 +132,7 @@ const SinglePortfolio = () => {
 										alt={portfolioData.company + index}
 									/>
 								))}
-								{!noLink && (
+								{!noAfterLink && (
 									<div>
 										{portfolioData.afterProjectLinks &&
 											portfolioData.afterProjectLinks.map((link, i) => (
