@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import jsonp from 'jsonp';
 import queryString from 'query-string';
@@ -9,6 +10,7 @@ import { AppWrap, MotionWrap } from '../../wrapper';
 import './Footer.scss';
 
 const Footer = () => {
+	const location = useLocation();
 	const [formData, setFormData] = useState({
 		NAME: '',
 		EMAIL: '',
@@ -39,55 +41,56 @@ const Footer = () => {
 	};
 
 	return (
-		<>
-			<h2 className="head-text">Take a coffee & chat with me</h2>
+		location.pathname !== '/visual-identity-workbook' && (
+			<>
+				<h2 className="head-text">Take a coffee & chat with me</h2>
 
-			<div className="app__footer-cards">
-				<div className="app__footer-card ">
-					<img src={images.email} alt="email" />
-					<a href="mailto:aly.masryy@gmail.com" className="p-text">
-						aly.masryy@gmail.com
-					</a>
+				<div className="app__footer-cards">
+					<div className="app__footer-card ">
+						<img src={images.email} alt="email" />
+						<a href="mailto:aly.masryy@gmail.com" className="p-text">
+							aly.masryy@gmail.com
+						</a>
+					</div>
+					<div className="app__footer-card">
+						<img src={images.mobile} alt="phone" />
+						<a href="tel:+971 543210980" className="p-text">
+							+971 543210980
+						</a>
+					</div>
 				</div>
-				<div className="app__footer-card">
-					<img src={images.mobile} alt="phone" />
-					<a href="tel:+971 543210980" className="p-text">
-						+971 543210980
-					</a>
-				</div>
-			</div>
-			{!isFormSubmitted ? (
-				<form className="app__footer-form app__flex">
-					<div className="app__flex">
-						<input
-							className="p-text"
-							type="text"
-							placeholder="Your Name"
-							name="NAME"
-							value={NAME}
-							onChange={handleChangeInput}
-						/>
-					</div>
-					<div className="app__flex">
-						<input
-							className="p-text"
-							type="EMAIL"
-							placeholder="Your Email"
-							name="EMAIL"
-							value={EMAIL}
-							onChange={handleChangeInput}
-						/>
-					</div>
-					<div>
-						<textarea
-							className="p-text"
-							placeholder="Your Message"
-							name="MESSAGE"
-							value={MESSAGE}
-							onChange={handleChangeInput}
-						/>
-					</div>
-					{/* <div className="app__checkbox-container">
+				{!isFormSubmitted ? (
+					<form className="app__footer-form app__flex">
+						<div className="app__flex">
+							<input
+								className="p-text"
+								type="text"
+								placeholder="Your Name"
+								name="NAME"
+								value={NAME}
+								onChange={handleChangeInput}
+							/>
+						</div>
+						<div className="app__flex">
+							<input
+								className="p-text"
+								type="EMAIL"
+								placeholder="Your Email"
+								name="EMAIL"
+								value={EMAIL}
+								onChange={handleChangeInput}
+							/>
+						</div>
+						<div>
+							<textarea
+								className="p-text"
+								placeholder="Your Message"
+								name="MESSAGE"
+								value={MESSAGE}
+								onChange={handleChangeInput}
+							/>
+						</div>
+						{/* <div className="app__checkbox-container">
 						<input
 							type="checkbox"
 							name="group[498916][1]"
@@ -96,16 +99,17 @@ const Footer = () => {
 						/>
 						<span className="p-text">Subscribe to my Newsletter</span>
 					</div> */}
-					<button type="button" className="p-text" onClick={handleSubmit}>
-						{!loading ? 'Send Message' : 'Sending...'}
-					</button>
-				</form>
-			) : (
-				<div>
-					<h3 className="head-text">Thank you for getting in touch!</h3>
-				</div>
-			)}
-		</>
+						<button type="button" className="p-text" onClick={handleSubmit}>
+							{!loading ? 'Send Message' : 'Sending...'}
+						</button>
+					</form>
+				) : (
+					<div>
+						<h3 className="head-text">Thank you for getting in touch!</h3>
+					</div>
+				)}
+			</>
+		)
 	);
 };
 

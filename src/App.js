@@ -4,7 +4,14 @@ import { Routes, Route } from 'react-router-dom';
 
 import { Footer } from './container';
 import { Navbar } from './components';
-import { Home, Blogs, Portfolio, BlogPost, SinglePortfolio } from './pages';
+import {
+	Home,
+	Blogs,
+	Portfolio,
+	BlogPost,
+	SinglePortfolio,
+	Workbook,
+} from './pages';
 import './App.scss';
 
 const App = () => (
@@ -20,6 +27,7 @@ const App = () => (
 				path="/portfolio/:portfolioId"
 				element={<SinglePortfolio />}
 			/>
+			<Route exact path="/visual-identity-workbook" element={<Workbook />} />
 		</Routes>
 		<Footer />
 	</div>

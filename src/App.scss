@@ -246,6 +246,12 @@
 	}
 }
 
+@media screen and (min-width: 900px) {
+	.show-sm {
+		display: none;
+	}
+}
+
 a {
 	text-decoration: none;
 }
