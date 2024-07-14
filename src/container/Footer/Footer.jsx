@@ -1,12 +1,10 @@
 /* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 import React, { useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import Fireworks from 'react-canvas-confetti/dist/presets/fireworks';
 
 import jsonp from 'jsonp';
-import queryString from 'query-string';
 
 import { images } from '../../constants';
 import { AppWrap, MotionWrap } from '../../wrapper';
@@ -56,12 +54,10 @@ const Footer = () => {
 
 		if (checkbox.current.checked) {
 			jsonp(
-				`https://alymasri.us10.list-manage.com/subscribe/post?u=69f5a35efbb528b5e8a51a8d8&amp;id=1981f3d9c7&amp;f_id=00eb41e5f0${queryString.stringify(newsletterData)}`,
+				`${process.env.REACT_APP_MAILCHIMP_ACTION_URL}&EMAIL=${formData.EMAIL}&NAME=${formData.NAME}`,
 				{ param: 'c' },
 				(err, data) => {
-					console.log('err:', err);
 					console.log('data:', data);
-					console.log(newsletterData);
 				}
 			);
 		}
@@ -77,7 +73,6 @@ const Footer = () => {
 			)
 			.then(
 				() => {
-					console.log('SUCCESS!');
 					setLoading(false);
 					setIsFormSubmitted(true);
 					playAudio(clapping);
@@ -99,10 +94,6 @@ const Footer = () => {
 				}
 			);
 	};
-
-	// const handleSubmit = () => {
-	// 	setLoading(true);
-	// };
 
 	return (
 		location.pathname !== '/visual-identity-workbook' && (

@@ -34,6 +34,9 @@ import circle from '../assets/circle.svg';
 import logo from '../assets/aly2.png';
 import horizontalLogo from '../assets/aly-horizontal.png';
 
+import earth1 from '../assets/earthcloudmap.jpg';
+import earth2 from '../assets/earthlights.png';
+
 import workbook1 from '../assets/workbook-imgs/1.png';
 import workbook2 from '../assets/workbook-imgs/2.png';
 import workbook3 from '../assets/workbook-imgs/3.png';
@@ -75,6 +78,8 @@ export default {
 	circle,
 	logo,
 	horizontalLogo,
+	earth1,
+	earth2,
 	workbook1,
 	workbook2,
 	workbook3,
