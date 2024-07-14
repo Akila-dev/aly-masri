@@ -1,40 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { AiFillEye } from 'react-icons/ai';
-// import { FaGlobe } from 'react-icons/fa';
-// import { IoShareSocialSharp } from 'react-icons/io5';
-// import { MdVerified, MdOutlineCancel } from 'react-icons/md';
-// import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 import { GoArrowRight } from 'react-icons/go';
 import { motion } from 'framer-motion';
 
+import { StarCanvas } from '../../components';
 import { AppWrap, MotionWrap } from '../../wrapper';
 import { urlFor, client } from '../../client';
 import './Work.scss';
-
-// import { images } from '../../constants';
 
 const Work = () => {
 	const [works, setWorks] = useState([]);
 	const [filterWork, setFilterWork] = useState([]);
 	const [activeFilter, setActiveFilter] = useState('All');
 	const [animateCard, setAnimateCard] = useState({ y: 0, opacity: 1 });
-	// const [currentWorkData, setCurrentWorkData] = useState({})
-	// const [showPopup, setShowPopup] = useState(false);
 
 	const location = useLocation();
-
-	// const handlePopupClick = (e) => {
-	// 	e.preventDefault();
-
-	// 	if (e.target === e.currentTarget) {
-	// 		setShowPopup(false);
-	// 	}
-	// };
-
-	// const showPortfolio = () => {
-	// 	setShowPopup(true);
-	// };
 
 	useEffect(() => {
 		const query = '*[_type == "portfolio"]|order(_createdAt desc)';
@@ -67,6 +48,9 @@ const Work = () => {
 
 	return (
 		<>
+			<div className="stars_canvas-container">
+				<StarCanvas />
+			</div>
 			<h2
 				className="head-text"
 				style={{ marginBottom: location.pathname === '/portfolio' ? 0 : 35 }}

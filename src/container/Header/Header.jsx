@@ -1,5 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import Lottie from 'lottie-react';
 
 import { AppWrap } from '../../wrapper';
 import { images } from '../../constants';
@@ -51,15 +53,30 @@ const Header = () => (
 				whileInView={{ opacity: [0, 1] }}
 				transition={{ duration: 0.5, delayChildren: 0.5 }}
 				className="app__header-img"
+				// style={{ overflowX: 'hidden', overflowY: 'visible' }}
 			>
 				<img src={images.profile} alt="profile_bg" />
-				<motion.img
+				{/* <motion.img
 					whileInView={{ scale: [0, 1] }}
 					transition={{ duration: 1, ease: 'easeInOut' }}
 					src={images.circle}
 					alt="profile_circle"
 					className="overlay_circle"
-				/>
+				/> */}
+				<motion.div
+					whileInView={{ scale: [0, 1.5] }}
+					className="overlay_circle"
+					style={{ zIndex: -1 }}
+				>
+					<Lottie
+						animationData={images.globe}
+						style={{
+							objectFit: 'contain',
+							width: '100%',
+							height: '100%',
+						}}
+					/>
+				</motion.div>
 			</motion.div>
 
 			<motion.div

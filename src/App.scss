@@ -24,6 +24,10 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	div {
+		z-index: 1;
+	}
 }
 
 .app__wrapper {
