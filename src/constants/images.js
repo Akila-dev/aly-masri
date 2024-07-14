@@ -1,5 +1,5 @@
-// import email from '../assets/email.png';
-// import mobile from '../assets/mobile.png';
+import email from '../assets/email.png';
+import mobile from '../assets/mobile.png';
 // import api from '../assets/api.png';
 // import cpp from '../assets/cpp.png';
 // import css from '../assets/css.png';
@@ -49,8 +49,8 @@ export default {
 	illustrator,
 	adobexd,
 	profile,
-	// email,
-	// mobile,
+	email,
+	mobile,
 	// api,
 	// cpp,
 	// css,

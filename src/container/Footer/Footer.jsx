@@ -1,44 +1,108 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
+import Fireworks from 'react-canvas-confetti/dist/presets/fireworks';
 
 import jsonp from 'jsonp';
 import queryString from 'query-string';
 
 import { images } from '../../constants';
 import { AppWrap, MotionWrap } from '../../wrapper';
+import clapping from '../../assets/clapping.wav';
 import './Footer.scss';
 
 const Footer = () => {
 	const location = useLocation();
+
+	const form = useRef();
+	const checkbox = useRef();
+	const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [showFireworks, setShowFireworks] = useState(false);
 	const [formData, setFormData] = useState({
 		NAME: '',
 		EMAIL: '',
 		MESSAGE: '',
 		newsletter: '',
 	});
-	const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-	const [loading, setLoading] = useState(false);
+	const [newsletterData, setNewsletterData] = useState({
+		NAME: '',
+		EMAIL: '',
+	});
 
 	const { NAME, EMAIL, MESSAGE, newsletter } = formData;
 
 	const handleChangeInput = (e) => {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
+		if (name === 'NAME') {
+			setNewsletterData({ ...newsletterData, [name]: value });
+		} else if (name === 'EMAIL') {
+			setNewsletterData({ ...newsletterData, [name]: value });
+		}
 	};
 
-	const handleSubmit = () => {
+	const playAudio = (audio) => {
+		const music = new Audio(audio);
+		music.playbackRate = 1;
+		music.play();
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
 		setLoading(true);
 
-		jsonp(
-			`https://alymasri.us10.list-manage.com/subscribe/post?u=69f5a35efbb528b5e8a51a8d8&amp;id=1981f3d9c7&amp;f_id=00eb41e5f0&${queryString.stringify(formData)}`,
-			{ param: 'c' },
-			(err, data) => {
-				// console.log('data:', data);
-				// console.log(formData);
-			}
-		);
+		if (checkbox.current.checked) {
+			jsonp(
+				`https://alymasri.us10.list-manage.com/subscribe/post?u=69f5a35efbb528b5e8a51a8d8&amp;id=1981f3d9c7&amp;f_id=00eb41e5f0${queryString.stringify(newsletterData)}`,
+				{ param: 'c' },
+				(err, data) => {
+					console.log('err:', err);
+					console.log('data:', data);
+					console.log(newsletterData);
+				}
+			);
+		}
+
+		emailjs
+			.sendForm(
+				process.env.REACT_APP_EMAILJS_CONTACT_SERVICE_ID,
+				process.env.REACT_APP_EMAILJS_CONTACT_TEMPLATE_ID,
+				form.current,
+				{
+					publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY,
+				}
+			)
+			.then(
+				() => {
+					console.log('SUCCESS!');
+					setLoading(false);
+					setIsFormSubmitted(true);
+					playAudio(clapping);
+					setShowFireworks(true);
+
+					setTimeout(() => {
+						setShowFireworks(false);
+					}, 6000);
+					setFormData({
+						NAME: '',
+						EMAIL: '',
+						MESSAGE: '',
+						newsletter: '',
+					});
+				},
+				(error) => {
+					console.log('FAILED TO SEND... ', error.text);
+					setLoading(false);
+				}
+			);
 	};
+
+	// const handleSubmit = () => {
+	// 	setLoading(true);
+	// };
 
 	return (
 		location.pathname !== '/visual-identity-workbook' && (
@@ -60,7 +124,11 @@ const Footer = () => {
 					</div>
 				</div>
 				{!isFormSubmitted ? (
-					<form className="app__footer-form app__flex">
+					<form
+						ref={form}
+						onSubmit={handleSubmit}
+						className="app__footer-form app__flex"
+					>
 						<div className="app__flex">
 							<input
 								className="p-text"
@@ -90,22 +158,29 @@ const Footer = () => {
 								onChange={handleChangeInput}
 							/>
 						</div>
-						{/* <div className="app__checkbox-container">
-						<input
-							type="checkbox"
-							name="group[498916][1]"
-							value={newsletter}
-							onChange={handleChangeInput}
-						/>
-						<span className="p-text">Subscribe to my Newsletter</span>
-					</div> */}
-						<button type="button" className="p-text" onClick={handleSubmit}>
+						<div className="app__checkbox-container">
+							<input
+								ref={checkbox}
+								type="checkbox"
+								name="newsletter"
+								value={newsletter}
+								onChange={handleChangeInput}
+							/>
+							<span className="p-text">Subscribe to my Newsletter</span>
+						</div>
+						<button type="submit" className="p-text">
 							{!loading ? 'Send Message' : 'Sending...'}
 						</button>
 					</form>
 				) : (
 					<div>
 						<h3 className="head-text">Thank you for getting in touch!</h3>
+					</div>
+				)}
+
+				{showFireworks && (
+					<div className="fixed top-0 left-0 h-screen w-full z-[1000000000000] pointer-events-none">
+						<Fireworks autorun={{ speed: 2 }} />
 					</div>
 				)}
 			</>
