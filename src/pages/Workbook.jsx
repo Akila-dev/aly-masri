@@ -144,7 +144,7 @@ const Workbook = () => {
 
 	return (
 		<div>
-			{isFormSubmitted ? (
+			{!isFormSubmitted ? (
 				<form ref={form} onSubmit={handleSubmit} className="app_workbook">
 					{/* Hero */}
 					<div className="app_workbook-hero">

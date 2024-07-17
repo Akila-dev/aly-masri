@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 import { AppWrap, MotionWrap } from '../../wrapper';
-import { StarCanvas } from '../../components';
+// import { StarCanvas } from '../../components';
 import './Services.scss';
 import { urlFor, client } from '../../client';
 
@@ -19,9 +19,9 @@ const Services = () => {
 
 	return (
 		<>
-			<div className="stars_canvas-container">
+			{/* <div className="stars_canvas-container">
 				<StarCanvas />
-			</div>
+			</div> */}
 			<h2 className="head-text">
 				What <span>I do</span>
 			</h2>

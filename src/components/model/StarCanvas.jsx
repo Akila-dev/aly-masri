@@ -21,7 +21,7 @@ const Stars = (props) => {
 	const [sphere, setSphere] = useState(null);
 
 	useEffect(() => {
-		setSphere(() => random.inSphere(new Float32Array(3000), { radius: 1.2 }));
+		setSphere(() => random.inSphere(new Float32Array(3000), { radius: 1 }));
 		// console.log(sphere);
 	}, []);
 
@@ -33,21 +33,21 @@ const Stars = (props) => {
 
 	//   *SCROLL
 	const { scrollY } = useScroll();
-	const scale = useTransform(scrollY, [0, 2000], [1, 0.7]);
-	const rotate = useTransform(scrollY, [0, 2000], [0, Math.PI]);
+	// const scale = useTransform(scrollY, [0, 2000], [1, 0.7]);
+	// const rotate = useTransform(scrollY, [0, 2000], [0, Math.PI]);
 
 	return (
 		<motion.group
 			transition={{ type: 'spring', stiffness: 700, damping: 35 }}
 			animate={{ scale: [0, 1] }}
-			scale={[scale, scale, scale]}
-			rotation={[0, rotate, Math.PI / 4]}
+			// scale={[scale, scale, scale]}
+			// rotation={[0, rotate, Math.PI / 4]}
 		>
 			<Points ref={ref} positions={sphere} stride={3} frustumCulled {...props}>
 				<PointMaterial
 					transparent
 					color="#46364a"
-					size={0.003}
+					size={0.002}
 					sizeAttenuation={true}
 					depthWrite={false}
 				/>

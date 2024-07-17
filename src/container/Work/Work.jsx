@@ -4,7 +4,7 @@ import { AiFillEye } from 'react-icons/ai';
 import { GoArrowRight } from 'react-icons/go';
 import { motion } from 'framer-motion';
 
-import { StarCanvas } from '../../components';
+// import { StarCanvas } from '../../components';
 import { AppWrap, MotionWrap } from '../../wrapper';
 import { urlFor, client } from '../../client';
 import './Work.scss';
@@ -48,9 +48,11 @@ const Work = () => {
 
 	return (
 		<>
-			<div className="stars_canvas-container">
-				<StarCanvas />
-			</div>
+			{/* {location.pathname === '/' && (
+				<div className="stars_canvas-container">
+					<StarCanvas />
+				</div>
+			)} */}
 			<h2
 				className="head-text"
 				style={{ marginBottom: location.pathname === '/portfolio' ? 0 : 35 }}
